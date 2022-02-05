@@ -1,24 +1,33 @@
-import "../styles/App.css";
 import Banner from "./Banner";
-import QuestionForm from "./QuestionForm.js";
+import logo from "../assets/logo.png";
 import Cart from "./Cart";
+import Footer from "./Footer";
 import ShoppingList from "./ShoppingList";
-import logo from "../assets/leaf.png";
-import Footer from "./Footer.js";
+import "../styles/Layout.css";
+import { useState } from "react/cjs/react.development";
 
 function App() {
+  const [cart, updateCart] = useState([]);
+
   return (
     <div>
       <Banner>
         <img src={logo} alt="La maison jungle" className="lmj-logo" />
         <h1 className="lmj-title">La maison jungle</h1>
       </Banner>
-      <QuestionForm />
-      {/*<Cart />*/}
-      <ShoppingList />
+      <div className="lmj-layout-inner">
+        <Cart
+          cart={cart /*correspond au state*/}
+          updateCart={updateCart /*correspond au updateState*/}
+        />
+        {/*On passe les states locals de cart en props*/}
+        <ShoppingList cart={cart} updateCart={updateCart} />
+      </div>
       <Footer />
     </div>
   );
 }
+
+/*dans ce fichier on parvient a faire remonter les states de Cart pour les ajouter à l'élément ShoppingList*/
 
 export default App;
