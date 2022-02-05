@@ -15,37 +15,29 @@ function ShoppingList() {
 
   //      <p>{categories}</p> affiche classiqueextérieurplante grasse
 
+  //map() permet de passer sur chaque élément d’un tableau afin de lui appliquer une fonction qu’on lui passera en paramètre.
   return (
     <div>
       <ul>
-        {
-          //map() permet de passer sur chaque élément d’un tableau afin de lui appliquer une fonction qu’on lui passera en paramètre.
-          categories.map((cat) => (
-            <li key={cat}> {cat} </li>
-          ))
-        }
+        {categories.map((cat) => (
+          <li key={cat}>{cat}</li>
+        ))}
       </ul>
       <ul className="lmj-plant-list">
-        {plantList.map((plant) => (
-          <li key={plant.id} className="lmj-plant-item">
-            {plant.name}
-            {plant.isSpecialOffer && <p className="lmj-sales">Soldes</p>}
-            <CareScale careType="water" scaleValue={plant.water} />
-            <CareScale careType="light" scaleValue={plant.light} />
-            <PlantItem
-              id={plant.id}
-              cover={plant.cover}
-              name={plant.name}
-              water={plant.water}
-              light={plant.light}
-            />
-          </li>
+        {plantList.map(({ id, cover, name, water, light }) => (
+          <PlantItem
+            id={id}
+            cover={cover}
+            name={name}
+            water={water}
+            light={light}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-//l33-34, on importe un composant enfant (CareScale) à notre composant actuel, qui est le composant parent du composant enfant
+//l28, on importe un composant enfant (PlantItem) à notre composant actuel, qui est le composant parent du composant enfant
 
 export default ShoppingList;
