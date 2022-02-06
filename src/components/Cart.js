@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/Cart.css";
+import { useEffect } from "react";
 
 function Cart({ cart, updateCart }) {
   /*On applique ici la decomposition . C'est le même principe que la destructuration vu précédemment avec les props
@@ -32,6 +33,10 @@ function Cart({ cart, updateCart }) {
       ]);
     }
   }
+
+  useEffect(() => {
+    document.title = `LMJ: ${total}€ d'achats`; //permet de changer le titre de l'onglet
+  }, [total]);
 
   return isOpen ? (
     <div className="lmj-cart">

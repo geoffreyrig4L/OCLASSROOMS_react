@@ -4,10 +4,17 @@ import Cart from "./Cart";
 import Footer from "./Footer";
 import ShoppingList from "./ShoppingList";
 import "../styles/Layout.css";
-import { useState } from "react/cjs/react.development";
+import { useState, useEffect } from "react/cjs/react.development";
 
 function App() {
-  const [cart, updateCart] = useState([]);
+  const [isFooterShown, updateIsFooterShown] = useState(true);
+
+  //permet de conserver le panier si la page est rafraichie
+  const savedCart = localStorage.getItem("cart");
+  const [cart, updateCart] = useState(savedCart ? JSON.parse(savedCart) : []);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <div>
@@ -23,7 +30,10 @@ function App() {
         {/*On passe les states locals de cart en props*/}
         <ShoppingList cart={cart} updateCart={updateCart} />
       </div>
-      <Footer />
+      <button onClick={() => updateIsFooterShown(!isFooterShown)}>
+        Cacher le footer
+      </button>
+      {isFooterShown && <Footer cart={cart} />}
     </div>
   );
 }
